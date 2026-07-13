@@ -22,9 +22,9 @@
 
 ## 效果预览
 
-一套端到端生成、零人工中间介入的 15 页左右组会 PPT：
+一套端到端生成、零人工中间介入的组会 PPT 精选页：
 
-![Slides montage](docs/images/example-montage.png)
+![Slides grid](docs/images/example-grid.png)
 
 ## 它到底帮你省了什么
 
