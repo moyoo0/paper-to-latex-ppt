@@ -1,0 +1,263 @@
+% =========================================================
+% 基础主题
+% =========================================================
+
+\usetheme[
+    progressbar=frametitle,
+    block=fill
+]{metropolis}
+
+% =========================================================
+% 宏包
+% =========================================================
+
+\usepackage[UTF8]{ctex}
+
+\usepackage{
+    amsmath,
+    amsfonts,
+    amssymb,
+    amsthm,
+    bm
+}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{tikz}
+
+\usetikzlibrary{
+    shapes.geometric,
+    arrows.meta,
+    positioning
+}
+
+% =========================================================
+% 颜色系统
+% =========================================================
+
+\definecolor{DeepBlue}{RGB}{30,70,120}
+\definecolor{AccentRed}{RGB}{180,50,50}
+\definecolor{LightGray}{RGB}{248,249,250}
+
+% =========================================================
+% Beamer 全局颜色
+% =========================================================
+
+\setbeamercolor{background canvas}{
+    bg=white
+}
+
+\setbeamercolor{normal text}{
+    fg=black!80
+}
+
+\setbeamercolor{frametitle}{
+    bg=white,
+    fg=DeepBlue
+}
+
+\setbeamercolor{title}{
+    fg=DeepBlue
+}
+
+\setbeamercolor{subtitle}{
+    fg=black!70
+}
+
+\setbeamercolor{title separator}{
+    fg=DeepBlue
+}
+
+\setbeamercolor{progress bar}{
+    fg=DeepBlue,
+    bg=black!5
+}
+
+\setbeamercolor{alerted text}{
+    fg=AccentRed
+}
+
+% =========================================================
+% Block 样式
+% =========================================================
+
+\setbeamercolor{block title}{
+    bg=LightGray,
+    fg=DeepBlue
+}
+
+\setbeamercolor{block body}{
+    bg=LightGray,
+    fg=black!80
+}
+
+\setbeamercolor{block title alerted}{
+    bg=LightGray,
+    fg=AccentRed
+}
+
+\setbeamercolor{block body alerted}{
+    bg=LightGray,
+    fg=black!80
+}
+
+\setbeamercolor{block title example}{
+    bg=LightGray,
+    fg=DeepBlue
+}
+
+\setbeamercolor{block body example}{
+    bg=LightGray,
+    fg=black!80
+}
+
+% =========================================================
+% 字体系统
+% =========================================================
+
+\usefonttheme{professionalfonts}
+
+\setbeamerfont{title}{
+    size=\LARGE,
+    series=\bfseries
+}
+
+\setbeamerfont{subtitle}{
+    size=\large,
+    series=\normalfont
+}
+
+\setbeamerfont{frametitle}{
+    size=\large,
+    series=\bfseries
+}
+
+\setbeamerfont{block title}{
+    series=\bfseries
+}
+
+\setbeamerfont{block title alerted}{
+    series=\bfseries
+}
+
+% =========================================================
+% 列表样式
+% =========================================================
+
+\setbeamertemplate{itemize items}[circle]
+
+\setbeamercolor{itemize item}{
+    fg=DeepBlue
+}
+
+\setbeamercolor{itemize subitem}{
+    fg=AccentRed
+}
+
+\setbeamercolor{enumerate item}{
+    fg=DeepBlue
+}
+
+% =========================================================
+% 页面与导航
+% =========================================================
+
+\setbeamertemplate{navigation symbols}{}
+
+% =========================================================
+% 通用文字组件
+% =========================================================
+
+\newcommand{\primary}[1]{%
+    \textcolor{DeepBlue}{#1}%
+}
+
+\newcommand{\primarybf}[1]{%
+    \textcolor{DeepBlue}{\textbf{#1}}%
+}
+
+\renewcommand{\accent}[1]{%
+    \textcolor{AccentRed}{#1}%
+}
+
+\newcommand{\accentbf}[1]{%
+    \textcolor{AccentRed}{\textbf{#1}}%
+}
+
+\newcommand{\muted}[1]{%
+    \textcolor{black!55}{#1}%
+}
+
+% =========================================================
+% 通用图片组件
+% 只控制图片尺寸，不定义图片用途
+% =========================================================
+
+\newcommand{\fullwidthimage}[1]{%
+    \begin{center}
+        \includegraphics[
+            width=0.95\textwidth,
+            height=0.72\textheight,
+            keepaspectratio
+        ]{#1}
+    \end{center}
+}
+
+\newcommand{\columnimage}[1]{%
+    \begin{center}
+        \includegraphics[
+            width=\linewidth,
+            height=0.66\textheight,
+            keepaspectratio
+        ]{#1}
+    \end{center}
+}
+
+% =========================================================
+% TikZ 通用组件样式
+% 仅定义节点和箭头外观，不规定流程内容与数量
+% =========================================================
+
+\tikzset{
+    pptbox/.style={
+        rectangle,
+        rounded corners=4pt,
+        draw=DeepBlue,
+        fill=LightGray,
+        text=black!80,
+        align=center,
+        inner sep=8pt,
+        font=\small
+    },
+    pptboxwide/.style={
+        pptbox,
+        text width=12cm
+    },
+    pptboxhighlight/.style={
+        rectangle,
+        rounded corners=4pt,
+        draw=AccentRed,
+        fill=LightGray,
+        text=black!80,
+        align=center,
+        inner sep=8pt,
+        font=\small
+    },
+    pptarrow/.style={
+        ->,
+        >=Stealth,
+        thick,
+        draw=DeepBlue
+    },
+    pptarrowaccent/.style={
+        ->,
+        >=Stealth,
+        thick,
+        draw=AccentRed
+    }
+}
+
+% Backward-compatible semantic helper for generated paper slides.
+\newcommand{\paperterm}[1]{\primarybf{#1}}
+\newcommand{\paperaccent}[1]{\accentbf{#1}}

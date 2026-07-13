@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paper to LaTeX PPT"
+  short_description: "把论文自动转成中文组会汇报 PPT 与逐页详细讲稿"
+  default_prompt: "Use $paper-to-latex-ppt to turn this paper PDF into a Chinese group-meeting PPT with speaker notes."
