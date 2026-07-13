@@ -1,8 +1,8 @@
 # paper-to-latex-ppt
 
-研究生应付组会专用：把一篇论文 PDF 尽快变成一份可以直接上阵的中文 PPT，顺带生成逐页讲稿，并写进 PowerPoint 备注区。
+研究生应付组会专用：把一篇论文 PDF 尽快变成一份可以直接上阵的中文 PPT，顺带生成逐页讲稿，并写进 PowerPoint 备注区，方便聪明的你演讲者视图。
 
-适用场景很朴素：明天组会，今晚才开始看 paper；白天偷跑实习，晚上还要装作科研进展稳定；mentor 临时丢来一篇论文，让你下次组会讲一下。这个 skill 的目标就是先把“能讲、像样、有备注”的 PPT 初稿救出来。
+适用场景很朴素：明天组会，今晚才开始看 paper；白天偷跑实习，晚上还要装作科研进展稳定；导师临时丢来一篇论文，让你下次组会讲一下。这个 skill 的目标就是先把“能讲、像样、有备注”的 PPT 初稿救出来。
 
 它不是单纯总结论文，而是产出一套组会交付物：
 
@@ -13,36 +13,17 @@
 
 ## 效果预览
 
-一套 15 页左右的组会 PPT：
+一套端到端生成的，零人工中间介入的PPT：
 
 ![Slides montage](docs/images/example-montage.png)
 
-标题页：
-
-![Title slide](docs/images/example-title.png)
-
-一句话贡献：
-
-![Contribution slide](docs/images/example-contribution.png)
-
-方法与公式：
-
-![Method slide](docs/images/example-method.png)
-
-实验结果：
-
-![Experiment slide](docs/images/example-experiment.png)
-
 ## 为什么需要它
 
-组会论文汇报的难点往往不是“完全不会读”，而是时间不够：
-
-- 论文几十页，但组会只需要 15 页左右，必须快速取舍。
-- PPT 不能只是摘要，得讲清背景、动机、输入输出、算法流程和实验。
-- 公式不能糊弄，最好是 LaTeX 原生公式，还要能在讲稿里解释符号。
-- 核心图要从 PDF 里拿出来，清晰、比例正确、别裁歪。
+- 偷跑实习，临阵磨枪做PPT，调格式，插公式插的心烦意乱
+- 优美的LaTeX 原生公式，导师都夸你科研认真，却不知道你是五分钟做出来的。
+- 有论文原图，这才显得你真动手做了。
 - 临阵磨枪时最怕没有讲稿，每页备注区最好能直接照着讲。
-- LaTeX 页面经常会溢出、太密、图片不可读，必须编译后看实际效果。
+- ai工具生成排版丑？ skill驱动agent自动修！。
 
 这个 skill 把这些事串成一个固定流程：
 
@@ -165,14 +146,3 @@ Use $paper-to-latex-ppt to convert paper.pdf into a Chinese PPT. Use the local T
 ```
 
 skill 会优先使用当前目录下的 `.tex`、`.sty`、主题、字体和图片资源；没有本地模板时，才使用内置的 Metropolis 风格中文 Beamer 模板。
-
-## 适合什么场景
-
-- 明天组会，今晚才开始看论文。
-- 偷跑实习，没空科研，但组会不能鸽。
-- 项目太忙，paper 只来得及临阵磨枪。
-- 老师/mentor 临时让你“下次讲一下这篇”。
-- 需要一份看起来完整、能顺着讲的中文 PPT 初稿。
-- 希望每页都有备注区讲稿，至少上台不至于卡壳。
-
-它生成的是救急初稿，不是免读论文许可证。真正上场前仍建议自己通读 `speaker_notes.md`，至少确认公式解释、图表结论和实验细节没有偏离论文。
