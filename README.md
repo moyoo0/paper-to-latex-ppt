@@ -20,6 +20,14 @@
 | PPTX 导出 | 每页高清插入 PPT，方便最终汇报 |
 | 备注区讲稿 | 每页生成可照着讲的 speaker notes |
 
+## 适合什么场景
+
+- 明天组会，今晚才开始看论文。
+- 偷跑实习，没空科研，但组会不能鸽。
+- 项目太忙，paper 只来得及临阵磨枪。
+- 导师临时让你“下次讲一下这篇”。
+- 需要一份看起来完整、能顺着讲的中文 PPT 初稿。
+- 希望每页都有备注区讲稿，至少上台不至于卡壳。
 ## 效果预览
 
 一套端到端生成、零人工中间介入的组会 PPT 精选页：
@@ -64,14 +72,6 @@ Paper PDF
 https://github.com/moyoo0/paper-to-latex-ppt.git
 ```
 
-它实际会做的事情本质上就是：
-
-```bash
-git clone https://github.com/moyoo0/paper-to-latex-ppt.git
-mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-ln -sfn /path/to/cloned/paper-to-latex-ppt \
-  "${CODEX_HOME:-$HOME/.codex}/skills/paper-to-latex-ppt"
-```
 
 如果你已经 clone 到本地，也可以直接让 Agent 说：
 
@@ -161,23 +161,8 @@ paper.pdf
 
 ## 推荐提示词
 
-### 临阵磨枪版
-
 ```text
 使用 $paper-to-latex-ppt 阅读 paper.pdf，帮我做一份明天组会能直接讲的中文 PPT。
-页数控制在 15 页左右，重点是能应付组会：背景、动机、输入输出、算法流程、关键公式、实验和总结都要有。
-请自动截取论文核心图片，公式尽量用 LaTeX 原生公式。
-生成后必须编译成 PDF，渲染检查每页，如果有溢出、太密、图片不清楚或公式不可读，就回改 LaTeX。
-最后输出 final_with_notes.pptx，并把每页讲稿写入 PowerPoint 备注区。
-```
-
-### 稍微认真版
-
-```text
-使用 $paper-to-latex-ppt 把 paper.pdf 转成中文组会汇报 PPT。
-请先通读论文，提炼研究问题、方法主线、核心公式、关键实验和局限性。
-默认 15 页左右，要求每页只讲一个主点，图和公式都要能在讲稿里解释清楚。
-最终交付 slides.tex、slides.pdf、final_with_notes.pptx 和 speaker_notes.md。
 ```
 
 ## 默认汇报结构
@@ -228,13 +213,5 @@ output/
 - `slides.tex`：有时间就继续改。
 - `slides.pdf`：检查最终视觉效果。
 
-## 适合什么场景
-
-- 明天组会，今晚才开始看论文。
-- 偷跑实习，没空科研，但组会不能鸽。
-- 项目太忙，paper 只来得及临阵磨枪。
-- 导师临时让你“下次讲一下这篇”。
-- 需要一份看起来完整、能顺着讲的中文 PPT 初稿。
-- 希望每页都有备注区讲稿，至少上台不至于卡壳。
 
 它生成的是救急初稿，不是免读论文许可证。真正上场前仍建议自己通读 `speaker_notes.md`，至少确认公式解释、图表结论和实验细节没有偏离论文。
