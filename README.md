@@ -81,13 +81,26 @@ ln -sfn /path/to/cloned/paper-to-latex-ppt \
 
 ## 运行依赖
 
-完整生成 PDF/PPT 需要 Python 包：
+完整生成 PDF/PPT 需要两类依赖：Python 包和本地 LaTeX。
+
+### Python 依赖
+
+推荐直接使用仓库里的 `requirements.txt`：
 
 ```bash
-python3 -m pip install pymupdf python-pptx pyyaml
+python3 -m pip install -r requirements.txt
 ```
 
-以及 LaTeX 工具：
+如果不想污染系统 Python，可以用虚拟环境：
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+```
+
+### LaTeX 依赖
+
+还需要本地能找到：
 
 ```text
 latexmk
@@ -101,6 +114,26 @@ curl -fsSL https://yihui.org/tinytex/install-bin-unix.sh | sh
 ```
 
 并确保 TinyTeX 的 bin 目录在 `PATH` 中。
+
+常见 macOS 路径是：
+
+```bash
+export PATH="$PATH:$HOME/Library/TinyTeX/bin/universal-darwin"
+```
+
+### 环境检查
+
+安装后可以运行：
+
+```bash
+python3 scripts/check_environment.py
+```
+
+如果用了虚拟环境：
+
+```bash
+.venv/bin/python scripts/check_environment.py
+```
 
 ## 怎么用
 
@@ -171,20 +204,21 @@ paper.pdf
 
 ## 输出文件
 
-默认输出到 `output/`：
+默认输出到按日期和论文名命名的独立目录，避免多次生成互相覆盖：
 
 ```text
 output/
-├── paper_assets.json
-├── slide_plan.json
-├── slides.tex
-├── slides.pdf
-├── final.pptx
-├── final_with_notes.pptx
-├── speaker_notes.md
-├── speaker_notes.json
-├── figures/
-└── page_images/
+└── YYYYMMDD_paper-name/
+    ├── paper_assets.json
+    ├── slide_plan.json
+    ├── slides.tex
+    ├── slides.pdf
+    ├── final.pptx
+    ├── final_with_notes.pptx
+    ├── speaker_notes.md
+    ├── speaker_notes.json
+    ├── figures/
+    └── page_images/
 ```
 
 最常用的是：

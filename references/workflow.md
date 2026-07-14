@@ -2,21 +2,24 @@
 
 ## 输出目录
 
-默认使用 `output/`：
+每次转换使用独立运行目录，默认由 `extract_paper_assets.py paper.pdf` 创建：
 
 ```text
 output/
-├── paper_assets.json
-├── slide_plan.json
-├── slides.tex
-├── slides.pdf
-├── final.pptx
-├── final_with_notes.pptx
-├── speaker_notes.md
-├── speaker_notes.json
-├── figures/
-└── page_images/
+└── YYYYMMDD_paper-name/
+    ├── paper_assets.json
+    ├── slide_plan.json
+    ├── slides.tex
+    ├── slides.pdf
+    ├── final.pptx
+    ├── final_with_notes.pptx
+    ├── speaker_notes.md
+    ├── speaker_notes.json
+    ├── figures/
+    └── page_images/
 ```
+
+不要把单次转换产物直接写到 `output/` 根目录。后续所有脚本都应继续使用同一个运行目录。
 
 ## 推荐迭代方式
 
@@ -86,7 +89,7 @@ output/
 讲稿 Markdown 使用 `# Slide N` 或 `## Slide N` 作为每页分隔。运行：
 
 ```bash
-python3 <skill>/scripts/add_speaker_notes.py output/speaker_notes.md --pptx output/final.pptx --out output/final_with_notes.pptx
+python3 <skill>/scripts/add_speaker_notes.py "$RUN_DIR/speaker_notes.md" --pptx "$RUN_DIR/final.pptx" --out "$RUN_DIR/final_with_notes.pptx"
 ```
 
 写入 PPT 备注区后，仍保留 `speaker_notes.md` 和 `speaker_notes.json`。

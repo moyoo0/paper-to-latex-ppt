@@ -28,7 +28,11 @@ def find_compiler(engine: str) -> list[str]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("tex", type=Path)
-    parser.add_argument("--out", type=Path, default=Path("output"))
+    parser.add_argument(
+        "--out",
+        type=Path,
+        help="Output directory. Defaults to the TeX file directory.",
+    )
     parser.add_argument("--engine", default="latexmk", choices=["latexmk", "xelatex", "lualatex"])
     parser.add_argument("--passes", type=int, default=2)
     args = parser.parse_args()
@@ -37,9 +41,10 @@ def main() -> None:
     if not tex.exists():
         raise SystemExit(f"TeX file not found: {tex}")
 
-    args.out.mkdir(parents=True, exist_ok=True)
+    out_dir = args.out or tex.parent
+    out_dir.mkdir(parents=True, exist_ok=True)
     command = find_compiler(args.engine)
-    log_path = args.out / "latex_build.log"
+    log_path = out_dir / "latex_build.log"
     workdir = tex.parent
 
     runs = 1 if Path(command[0]).name == "latexmk" else max(1, args.passes)
@@ -57,7 +62,7 @@ def main() -> None:
             log.write("\n")
 
     pdf = tex.with_suffix(".pdf")
-    target_pdf = args.out / "slides.pdf"
+    target_pdf = out_dir / "slides.pdf"
     if result is None or result.returncode != 0 or not pdf.exists():
         raise SystemExit(f"LaTeX build failed. See {log_path}")
 

@@ -21,13 +21,18 @@ def require_fitz():
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("pdf", type=Path)
-    parser.add_argument("--out", type=Path, default=Path("output"))
+    parser.add_argument(
+        "--out",
+        type=Path,
+        help="Output directory. Defaults to the PDF file directory.",
+    )
     parser.add_argument("--dpi", type=int, default=220)
     args = parser.parse_args()
 
     fitz = require_fitz()
     doc = fitz.open(args.pdf)
-    image_dir = args.out / "page_images"
+    out_dir = args.out or args.pdf.parent
+    image_dir = out_dir / "page_images"
     image_dir.mkdir(parents=True, exist_ok=True)
 
     zoom = args.dpi / 72
@@ -67,8 +72,8 @@ def main() -> None:
         "manual_review_required": True,
         "review_instruction": "Open the rendered page images and revise slides.tex if any page has overflow, unreadable text, bad crops, dense content, or font issues.",
     }
-    args.out.mkdir(parents=True, exist_ok=True)
-    report_path = args.out / "inspection.json"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    report_path = out_dir / "inspection.json"
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"Wrote {report_path}")
     print(f"Rendered pages: {len(pages)} into {image_dir}")

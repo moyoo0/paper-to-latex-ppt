@@ -29,14 +29,16 @@ description: Turn an academic paper PDF into a Chinese LaTeX Beamer presentation
 在任务目录运行：
 
 ```bash
-python3 <skill>/scripts/extract_paper_assets.py paper.pdf --out output
-python3 <skill>/scripts/build_latex_pdf.py output/slides.tex --out output
-python3 <skill>/scripts/inspect_pdf_pages.py output/slides.pdf --out output
-python3 <skill>/scripts/pdf_to_pptx.py output/slides.pdf --out output/final.pptx
-python3 <skill>/scripts/add_speaker_notes.py output/speaker_notes.md --pptx output/final.pptx
+python3 <skill>/scripts/extract_paper_assets.py paper.pdf
+# 默认创建 output/YYYYMMDD_paper-name/；后续用该目录作为 RUN_DIR。
+RUN_DIR=output/YYYYMMDD_paper-name
+python3 <skill>/scripts/build_latex_pdf.py "$RUN_DIR/slides.tex"
+python3 <skill>/scripts/inspect_pdf_pages.py "$RUN_DIR/slides.pdf"
+python3 <skill>/scripts/pdf_to_pptx.py "$RUN_DIR/slides.pdf"
+python3 <skill>/scripts/add_speaker_notes.py "$RUN_DIR/speaker_notes.md" --pptx "$RUN_DIR/final.pptx"
 ```
 
-`<skill>` 是本 skill 目录。脚本可以单独使用，也可以按任务需要调整参数。
+`<skill>` 是本 skill 目录。脚本可以单独使用，也可以按任务需要调整参数。一次论文转换必须使用独立运行目录，命名为 `output/YYYYMMDD_<paper-name>/`，不要把文件直接堆到 `output/` 根目录。
 
 本地环境需要 LaTeX 编译器（优先 `latexmk` 或 `xelatex`）以及 Python 包 `pymupdf`、`python-pptx`。缺少依赖时先安装依赖，再继续流水线，不要跳过 PDF 渲染检查步骤。
 
@@ -103,7 +105,7 @@ python3 <skill>/scripts/add_speaker_notes.py output/speaker_notes.md --pptx outp
 
 ## PDF 检查标准
 
-运行 `scripts/inspect_pdf_pages.py` 后，必须检查 `output/page_images/` 中的页面图和 `output/inspection.json`。重点判断：
+运行 `scripts/inspect_pdf_pages.py` 后，必须检查运行目录中的 `page_images/` 页面图和 `inspection.json`。重点判断：
 
 - 是否有空白页、编译错误页或明显缺失内容。
 - 标题、页脚、公式、图片是否越界。
@@ -117,7 +119,7 @@ python3 <skill>/scripts/add_speaker_notes.py output/speaker_notes.md --pptx outp
 
 ## PPTX 输出规则
 
-PPTX 是最终交付格式，但视觉权威来自 LaTeX PDF。使用 `scripts/pdf_to_pptx.py` 将最终确认的 PDF 每页渲染为高清图片并铺满 PPT 页面。若用户提供 PPT 模板，可以用作页面尺寸参考；若用户只提供 TeX 模板，这是更优先、更有效的模板来源。生成讲稿后，使用 `scripts/add_speaker_notes.py output/speaker_notes.md --pptx output/final.pptx --out output/final_with_notes.pptx` 将讲稿写入 PPT 备注区。
+PPTX 是最终交付格式，但视觉权威来自 LaTeX PDF。使用 `scripts/pdf_to_pptx.py` 将最终确认的 PDF 每页渲染为高清图片并铺满 PPT 页面。若用户提供 PPT 模板，可以用作页面尺寸参考；若用户只提供 TeX 模板，这是更优先、更有效的模板来源。生成讲稿后，使用 `scripts/add_speaker_notes.py "$RUN_DIR/speaker_notes.md" --pptx "$RUN_DIR/final.pptx" --out "$RUN_DIR/final_with_notes.pptx"` 将讲稿写入 PPT 备注区。
 
 ## 讲稿规则
 
@@ -128,7 +130,7 @@ PPTX 是最终交付格式，但视觉权威来自 LaTeX PDF。使用 `scripts/p
 - 每张图的模块、箭头、颜色、曲线、坐标轴、图例和结论。
 - 可以口头讲出的过渡句。
 
-讲稿默认写入 `output/speaker_notes.md`，并通过 `scripts/add_speaker_notes.py` 注入到 `output/final_with_notes.pptx` 的备注区。保留 `speaker_notes.md` 和 `speaker_notes.json` 作为可审计 sidecar 文件。
+讲稿默认写入运行目录中的 `speaker_notes.md`，并通过 `scripts/add_speaker_notes.py` 注入到同一目录的 `final_with_notes.pptx` 备注区。保留 `speaker_notes.md` 和 `speaker_notes.json` 作为可审计 sidecar 文件。
 
 ## 资源
 

@@ -28,7 +28,11 @@ def require_dependencies():
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("pdf", type=Path)
-    parser.add_argument("--out", type=Path, default=Path("output/final.pptx"))
+    parser.add_argument(
+        "--out",
+        type=Path,
+        help="Output PPTX path. Defaults to final.pptx beside the PDF.",
+    )
     parser.add_argument("--template-pptx", type=Path)
     parser.add_argument("--dpi", type=int, default=300)
     args = parser.parse_args()
@@ -63,9 +67,10 @@ def main() -> None:
                 height=prs.slide_height,
             )
 
-    args.out.parent.mkdir(parents=True, exist_ok=True)
-    prs.save(args.out)
-    print(f"Wrote {args.out}")
+    out = args.out or args.pdf.parent / "final.pptx"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    prs.save(out)
+    print(f"Wrote {out}")
 
 
 if __name__ == "__main__":

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+from datetime import datetime
 from pathlib import Path
 
 
@@ -23,6 +24,18 @@ CAPTION_RE = re.compile(r"^\s*(fig(?:ure)?|图|table|表)\s*[\.:：]?\s*\d*", re
 EQUATION_HINT_RE = re.compile(
     r"(=|\\sum|\\prod|\\arg|\\min|\\max|\\mathbb|\\mathbf|\\frac|≤|≥|∑|∏|∫|≈|∝)"
 )
+
+
+def safe_name(value: str, max_length: int = 80) -> str:
+    value = value.lower()
+    value = re.sub(r"[^a-z0-9\u4e00-\u9fff]+", "-", value).strip("-")
+    value = re.sub(r"-{2,}", "-", value)
+    return (value[:max_length].strip("-") or "paper")
+
+
+def default_output_dir(pdf_path: Path) -> Path:
+    date = datetime.now().strftime("%Y%m%d")
+    return Path("output") / f"{date}_{safe_name(pdf_path.stem)}"
 
 
 def clean_line(line: str) -> str:
@@ -92,13 +105,19 @@ def extract_assets(pdf_path: Path, out_dir: Path) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("pdf", type=Path)
-    parser.add_argument("--out", type=Path, default=Path("output"))
+    parser.add_argument(
+        "--out",
+        type=Path,
+        help="Output directory. Defaults to output/YYYYMMDD_<paper-name>/.",
+    )
     args = parser.parse_args()
 
-    args.out.mkdir(parents=True, exist_ok=True)
-    assets = extract_assets(args.pdf, args.out)
-    out_file = args.out / "paper_assets.json"
+    out_dir = args.out or default_output_dir(args.pdf)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    assets = extract_assets(args.pdf, out_dir)
+    out_file = out_dir / "paper_assets.json"
     out_file.write_text(json.dumps(assets, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"Output directory: {out_dir}")
     print(f"Wrote {out_file}")
     print(f"Pages: {assets['page_count']}; figures: {len(assets['figures'])}; captions: {len(assets['captions'])}; equation candidates: {len(assets['equation_candidates'])}")
 
