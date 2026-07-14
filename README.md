@@ -29,6 +29,8 @@
 
 一套端到端生成、零人工中间介入的组会 PPT 精选页：
 
+![Paper to LaTeX PPT 工作流](docs/images/start.png)
+
 ![Slides grid](docs/images/example-grid.png)
 
 ## 它到底帮你省了什么
