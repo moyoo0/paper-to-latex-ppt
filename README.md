@@ -6,6 +6,8 @@
 
 这个 skill 的目标很直接：把一篇论文 PDF 变成一份 **能讲、像样、有备注** 的组会 PPT 初稿。
 
+![Paper to LaTeX PPT 工作流](docs/images/start.png)
+
 它不是论文摘要工具，而是一个面向“组会交付”的生成流程：
 
 - `final_with_notes.pptx`：最终 PPT，备注区里有逐页讲稿，优先拿这个去讲。
@@ -28,8 +30,6 @@
 ## 效果预览
 
 一套端到端生成、零人工中间介入的组会 PPT 精选页：
-
-![Paper to LaTeX PPT 工作流](docs/images/start.png)
 
 ![Slides grid](docs/images/example-grid.png)
 
