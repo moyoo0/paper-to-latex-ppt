@@ -2,8 +2,9 @@
 
 > 研究生应付组会专用：把一篇论文 PDF 尽快变成一份可以直接上阵的中文 PPT，自动生成逐页讲稿，并写进 PowerPoint 备注区。
 
-明天组会，今晚才开始看 paper。白天偷跑实习，晚上还要假装科研进展稳定。导师临时丢来一篇论文，让你“下次组会讲一下”。  
-这个 skill 的目标很直接：先把一份 **能讲、像样、有备注** 的组会 PPT 初稿救出来。
+研究生一边实习、上课或做项目，一边还要应付组会论文汇报。导师临时发来一篇 paper，真正需要准备的不只是摘要，而是一套包含背景、方法、公式、原图、实验和逐页讲稿的汇报材料。
+
+这个 skill 的目标很直接：把一篇论文 PDF 变成一份 **能讲、像样、有备注** 的组会 PPT 初稿。
 
 它不是论文摘要工具，而是一个面向“组会交付”的生成流程：
 
@@ -22,12 +23,7 @@
 
 ## 适合什么场景
 
-- 明天组会，今晚才开始看论文。
-- 偷跑实习，没空科研，但组会不能鸽。
-- 项目太忙，paper 只来得及临阵磨枪。
-- 导师临时让你“下次讲一下这篇”。
-- 需要一份看起来完整、能顺着讲的中文 PPT 初稿。
-- 希望每页都有备注区讲稿，至少上台不至于卡壳。
+适合需要在短时间内完成论文组会汇报的人：论文临时下发、准备时间很短，或者希望快速得到一份包含原图、公式和逐页讲稿的中文 PPT 初稿。
 
 ## 效果预览
 
@@ -64,44 +60,38 @@ Paper PDF
 
 ## 安装方式
 
-最朴素的方式：把这个仓库链接丢给 Codex/Agent，让它帮你安装。
+最推荐的方式是直接让 Codex、Claude Code 或其他支持 Agent Skill 的工具完成安装和环境检查。
 
-复制这句话给 Agent：
+复制下面这段话给 Agent：
 
 ```text
-给我安装下这个 git 链接对应的 skill：
+请安装这个 GitHub 仓库对应的 Skill：
 https://github.com/moyoo0/paper-to-latex-ppt.git
+
+请继续检查并安装运行环境：
+1. 创建 Python 虚拟环境；
+2. 安装 requirements.txt 中的依赖；
+3. 检查 latexmk 和 xelatex；
+4. 如果缺少 LaTeX，请根据我的操作系统给出安装方案；
+5. 运行 scripts/check_environment.py，直到环境检查通过。
 ```
 
-
-如果你已经 clone 到本地，也可以直接让 Agent 说：
+安装完成后，可以继续让 Agent 确认：
 
 ```text
-把当前仓库安装成 Codex skill，skill 名称是 paper-to-latex-ppt。
+请确认 paper-to-latex-ppt 的环境已经配置完成，并告诉我下一步如何用 paper.pdf 生成带讲稿的 PPTX。
 ```
 
-## 运行依赖
+### 手动安装方式
 
-完整生成 PDF/PPT 需要两类依赖：Python 包和本地 LaTeX。
-
-### Python 依赖
-
-推荐直接使用仓库里的 `requirements.txt`：
-
-```bash
-python3 -m pip install -r requirements.txt
-```
-
-如果不想污染系统 Python，可以用虚拟环境：
+如果想自己执行命令，也可以使用下面的备用流程。完整生成 PPT 需要 Python 依赖和本地 LaTeX。
 
 ```bash
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 ```
 
-### LaTeX 依赖
-
-还需要本地能找到：
+需要确保系统中存在：
 
 ```text
 latexmk
@@ -122,15 +112,7 @@ curl -fsSL https://yihui.org/tinytex/install-bin-unix.sh | sh
 export PATH="$PATH:$HOME/Library/TinyTeX/bin/universal-darwin"
 ```
 
-### 环境检查
-
-安装后可以运行：
-
-```bash
-python3 scripts/check_environment.py
-```
-
-如果用了虚拟环境：
+最后运行环境检查：
 
 ```bash
 .venv/bin/python scripts/check_environment.py
