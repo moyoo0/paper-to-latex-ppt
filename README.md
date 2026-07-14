@@ -144,22 +144,6 @@ python3 scripts/check_environment.py
 paper.pdf
 ```
 
-然后在 Codex 里直接说中文：
-
-```text
-使用 $paper-to-latex-ppt，把 paper.pdf 做成一份中文组会 PPT。
-目标是明天可以直接讲，15 页左右，必须包含背景、动机、输入输出、算法流程、核心公式、实验设置、实验结果和总结。
-请生成 PPTX，并把逐页讲稿写入 PPT 备注区。
-```
-
-如果你有自己的 TeX 模板：
-
-```text
-使用 $paper-to-latex-ppt，把 paper.pdf 做成中文组会 PPT。
-优先使用当前目录下的 TeX 模板和宏包风格。
-不要只生成 LaTeX，必须编译 PDF、检查页面、修正排版，然后导出带备注区讲稿的 PPTX。
-```
-
 ## 推荐提示词
 
 ```text
